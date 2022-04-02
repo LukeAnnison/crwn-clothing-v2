@@ -3,7 +3,7 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
-import InputField from "./input-field/input-field";
+import InputField from "../input-field/input-field";
 import './sign-up-form.styles.scss'
 import Button from './../button/button.js'
 
@@ -34,9 +34,11 @@ const SignUpForm = () => {
         password
       );
 
+
       await createUserDocumentFromAuth(user, { displayName });
     } catch (error) {
       console.log("user creation encountered an error", error);
+
     }
   };
 
