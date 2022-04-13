@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const addCartItem = (cartItems, productToAdd) => {
   // find if cartItems contains to add
@@ -24,17 +24,33 @@ export const CartContext = createContext({
   setChart: () => {},
   cartItems: [],
   addItemToCart: () => {},
+  count: 0,
 });
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [totalItems, setTotalItems] = useState(0);
 
   const addItemToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd));
-    console.log({cart})
+    console.log({ cart, cartItems });
   };
-  const value = { cart, setCart, addItemToCart, cartItems };
+
+  useEffect(() => {
+let count = 0;
+cartItems.map((cartItem) => count += cartItem.quantity);
+setTotalItems(count);
+console.log({count, totalItems})
+  }, [cartItems])
+
+  const value = {
+    cart,
+    setCart,
+    addItemToCart,
+    cartItems,
+    totalItems,
+  };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

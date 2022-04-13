@@ -12,7 +12,7 @@ import "./navigation.styles.scss";
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
-  const { cart,  } = useContext(CartContext);
+  const { cart } = useContext(CartContext);
 
 
 
